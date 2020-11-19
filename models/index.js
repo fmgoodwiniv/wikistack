@@ -9,13 +9,13 @@ const Page = db.define("posts", {
   title: { type: Sequelize.STRING, allowNull: false },
   slug: { type: Sequelize.STRING, allowNull: false },
   content: { type: Sequelize.TEXT, allowNull: false },
-  status: Sequelize.STRING, //enum w two args, open and closed.
+  status: Sequelize.ENUM('open', 'closed'), //enum w two args, open and closed.
 });
 
 const User = db.define("users", {
   //
   name: { type: Sequelize.STRING, allowNull: false },
-  email: { type: Sequelize.STRING, allowNull: false },
+  email: { type: Sequelize.STRING, allowNull: false, validate: { isEmail: true }},
 });
 
 module.exports = {
