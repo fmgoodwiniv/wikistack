@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const path = require("path");
 const layout = require("./views/layout");
-const { db } = require("./models");
+const { db, Page, User } = require("./models");
 
 db.authenticate().then(() => {
   console.log("connected to the database");
@@ -23,6 +23,12 @@ app.get("/", (req, res) => {
 });
 
 app.use(express.static(path.join(__dirname, "public")));
+
+async function syncDb() {
+  await db.sync({ force: true });
+}
+
+syncDb();
 
 const PORT = 3000;
 
